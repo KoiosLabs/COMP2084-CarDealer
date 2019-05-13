@@ -16,7 +16,7 @@ namespace Comp2084_CarDealer.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
+            ViewBag.NewItem = "This is our new item";
             return View();
         }
 
