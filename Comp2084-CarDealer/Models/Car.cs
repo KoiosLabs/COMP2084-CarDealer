@@ -16,5 +16,8 @@ namespace Comp2084_CarDealer.Models
         public virtual String Make { get; set; }
 
         public virtual Decimal Price { get; set; }
+
+        public virtual int CarTypeId { get; set; }
+        public virtual CarType TypeOfCar { get; set; }
     }
 }

@@ -31,5 +31,7 @@ namespace Comp2084_CarDealer.Models
         }
 
         public System.Data.Entity.DbSet<Comp2084_CarDealer.Models.Car> Cars { get; set; }
+
+        public System.Data.Entity.DbSet<Comp2084_CarDealer.Models.CarType> CarTypes { get; set; }
     }
 }

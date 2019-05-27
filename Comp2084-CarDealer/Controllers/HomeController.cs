@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Comp2084_CarDealer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,11 +16,21 @@ namespace Comp2084_CarDealer.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-            ViewBag.NewItem = "This is our new item";
+
+            AboutViewModel avm = new AboutViewModel()
+            {
+                Title = "About our car dealership",
+                Message = "We are a world renowned car dealership with the finest vehicles.",
+                NewItem = "This is our new Item variable!"
+            };
+
+            return View(avm);
+        }
+        public ActionResult Support()
+        {
+            ViewBag.Message = "This is a support page, you can get help here if you need it!";
             return View();
         }
-
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

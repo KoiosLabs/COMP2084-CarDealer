@@ -1,7 +1,12 @@
-﻿@{
-    ViewBag.Title = "About";
+﻿@using Comp2084_CarDealer.Models
+@model  AboutViewModel
+
+@{
+    ViewBag.Title = Model.Title;
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
-<h3>@ViewBag.NewItem</h3>
+
+<h2>@Model.Title.</h2>
+<h3>@Model.Message</h3>
+<h3>@Model.NewItem</h3>
+  
 <p>Use this area to provide additional information.</p>
