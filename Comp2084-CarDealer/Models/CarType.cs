@@ -10,7 +10,9 @@ namespace Comp2084_CarDealer.Models
     {
         public virtual int id { get; set; }
         
+        [Required]
         public virtual String Name { get; set; }
+        [Range(1,50,ErrorMessage = "You dolt, {0} must be between 1 and 50")]
         public virtual int NumberOfSeats { get; set; }
         public virtual List<Car> cars { get; set; }
     }

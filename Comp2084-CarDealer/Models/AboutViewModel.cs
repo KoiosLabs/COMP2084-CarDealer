@@ -8,7 +8,7 @@ namespace Comp2084_CarDealer.Models
     public class AboutViewModel
     {
         public String Title { get; set; }
-        public string Message { get; set; }
-        public string NewItem { get; set; }
+        public String Message { get; set; }
+        public String NewItem { get; set; }
     }
 }
