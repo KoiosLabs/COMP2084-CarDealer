@@ -17,7 +17,8 @@ namespace Comp2084_CarDealer.Controllers
         // GET: Cars
         public ActionResult Index()
         {
-            return View(db.Cars.ToList());
+            var cars = db.Cars.Include(c => c.TypeOfCar);
+            return View(cars.ToList());
         }
 
         // GET: Cars/Details/5
@@ -35,9 +36,11 @@ namespace Comp2084_CarDealer.Controllers
             return View(car);
         }
 
+        [Authorize(Roles ="Admin")]
         // GET: Cars/Create
         public ActionResult Create()
         {
+            ViewBag.CarTypeId = new SelectList(db.CarTypes, "id", "Name");
             return View();
         }
 
@@ -45,8 +48,10 @@ namespace Comp2084_CarDealer.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Model,Make,Price")] Car car)
+        public ActionResult Create([Bind(Include = "Id,Model,Make,Price,CarTypeId")] Car car)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +60,7 @@ namespace Comp2084_CarDealer.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.CarTypeId = new SelectList(db.CarTypes, "id", "Name", car.CarTypeId);
             return View(car);
         }
 
@@ -70,6 +76,7 @@ namespace Comp2084_CarDealer.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.CarTypeId = new SelectList(db.CarTypes, "id", "Name", car.CarTypeId);
             return View(car);
         }
 
@@ -78,7 +85,7 @@ namespace Comp2084_CarDealer.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Model,Make,Price")] Car car)
+        public ActionResult Edit([Bind(Include = "Id,Model,Make,Price,CarTypeId")] Car car)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +93,7 @@ namespace Comp2084_CarDealer.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.CarTypeId = new SelectList(db.CarTypes, "id", "Name", car.CarTypeId);
             return View(car);
         }
 

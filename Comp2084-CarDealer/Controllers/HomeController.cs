@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace Comp2084_CarDealer.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -26,6 +27,8 @@ namespace Comp2084_CarDealer.Controllers
 
             return View(avm);
         }
+
+        [Authorize]
         public ActionResult Support()
         {
             ViewBag.Message = "This is a support page, you can get help here if you need it!";

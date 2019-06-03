@@ -58,11 +58,11 @@ namespace Comp2084_CarDealer
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "734411027396-3n7gtq8crfvch01pjf65e2tf1h3pfaet.apps.googleusercontent.com",
+                ClientSecret = "NYx6BPymHJTin0MUnf_6rXCg"
+            });
         }
     }
 }
