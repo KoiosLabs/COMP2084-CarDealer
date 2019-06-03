@@ -9,7 +9,7 @@ namespace Comp2084_CarDealer.Models
 {
     public class Car
     {
-        
+        //We need a primary key on every table.
         public virtual int Id { get; set; }
 
         public virtual String Model { get; set; }
