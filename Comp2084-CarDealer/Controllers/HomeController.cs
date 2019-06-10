@@ -10,6 +10,7 @@ namespace Comp2084_CarDealer.Controllers
     [RequireHttps]
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
             return View();
@@ -27,6 +28,42 @@ namespace Comp2084_CarDealer.Controllers
 
             return View(avm);
         }
+
+
+        public ActionResult Special()
+        {
+            var SaleCar = GetSpecial();
+            return PartialView("_Special", SaleCar);
+        }
+        // Select an album and discount it by 50%        
+        private Car GetSpecial()
+        {
+            var SaleCar = db.Cars
+                .OrderBy(a => System.Guid.NewGuid())
+                .First();
+            SaleCar.Price *= 0.5m;
+            return SaleCar;
+        }
+
+        public ActionResult CarSearch(string q)
+        {
+            var cars = GetCars(q);
+            return PartialView(cars);
+        }
+
+        public ActionResult QuickSearch(string term)
+        {
+            var cars = GetCars(term).Select(a => new { value = a.Make +" "+a.Model });
+            return Json(cars, JsonRequestBehavior.AllowGet);
+        }
+
+
+        private List<Car> GetCars(string searchString)
+        {
+            return db.Cars.Where(a => a.Model.Contains(searchString) || a.Make.Contains(searchString)).ToList();
+        }
+
+
 
         [Authorize]
         public ActionResult Support()

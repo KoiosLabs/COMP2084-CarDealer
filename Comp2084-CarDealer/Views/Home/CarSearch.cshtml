@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Comp2084_CarDealer.Models.Car>
+
+@{
+    ViewBag.Title = "Search Results";
+}
+
+<h2>CarSearch</h2>
+
+
+<table class="table">
+
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id = item.Id })
+            @Html.DisplayFor(modelItem => item.TypeOfCar.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Model)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Make)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+
+    </tr>
+}
+
+</table>

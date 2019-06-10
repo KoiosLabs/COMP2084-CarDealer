@@ -33,7 +33,7 @@ namespace Comp2084_CarDealer.Models
             {
                 Make = "BMW",
                 Model = "335",
-                Price = 75000,
+                Price = 49999,
                 TypeOfCar = Sedan
             };
 

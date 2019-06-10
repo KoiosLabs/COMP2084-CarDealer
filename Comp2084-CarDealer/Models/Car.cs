@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Comp2084_CarDealer.Validators;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -13,11 +14,15 @@ namespace Comp2084_CarDealer.Models
         public virtual int Id { get; set; }
 
         public virtual String Model { get; set; }
+        
 
+        [MaxWords(3)]
         public virtual String Make { get; set; }
 
         [DisplayName("Dealer Book Price")]
         [DataType(DataType.Currency)]
+        [Required]
+        [Range(10000,49999)]
         public virtual Decimal Price { get; set; }
 
         public virtual int CarTypeId { get; set; }
