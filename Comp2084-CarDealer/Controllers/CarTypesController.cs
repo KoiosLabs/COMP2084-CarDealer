@@ -11,6 +11,9 @@ using Comp2084_CarDealer.Models;
 namespace Comp2084_CarDealer.Controllers
 {
     [RequireHttps]
+    
+    [Route("{action=index}/{id?}")]
+    [RoutePrefix("CarTypes")]
     public class CarTypesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

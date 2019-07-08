@@ -8,9 +8,14 @@ using System.Web.Mvc;
 namespace Comp2084_CarDealer.Controllers
 {
     [RequireHttps]
+    [Route("home/{action=index}")]
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        [Route("")]
+        [Route("home")]
+        [Route("home/index")]
         public ActionResult Index()
         {
             return View();
@@ -63,7 +68,11 @@ namespace Comp2084_CarDealer.Controllers
             return db.Cars.Where(a => a.Model.Contains(searchString) || a.Make.Contains(searchString)).ToList();
         }
 
-
+        [Route("testRoute/{day}/{year}/{month}")]
+        public String testRoute(String day, String month, String year)
+        {
+            return "DAY: " + day + " Month: " + month + " year: " + year;
+        }
 
         [Authorize]
         public ActionResult Support()

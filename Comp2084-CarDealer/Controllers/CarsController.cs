@@ -14,6 +14,8 @@ namespace Comp2084_CarDealer.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+
+        [Route("cars/list")]
         // GET: Cars
         public ActionResult Index()
         {
@@ -21,6 +23,13 @@ namespace Comp2084_CarDealer.Controllers
             return View(cars.ToList());
         }
 
+        //[Route("cars/details/{name}")]
+        //public String Details(String name)
+        //{
+        //    return "Car name: " + name;
+        //}
+
+        [Route("cars/details/{id:int=1}")]
         // GET: Cars/Details/5
         public ActionResult Details(int? id)
         {
