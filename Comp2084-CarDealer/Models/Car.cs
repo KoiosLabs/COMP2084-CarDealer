@@ -1,4 +1,5 @@
 ﻿using Comp2084_CarDealer.Validators;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +27,7 @@ namespace Comp2084_CarDealer.Models
         public virtual Decimal Price { get; set; }
 
         public virtual int CarTypeId { get; set; }
+        [JsonIgnore]
         public virtual CarType TypeOfCar { get; set; }
     }
 }
