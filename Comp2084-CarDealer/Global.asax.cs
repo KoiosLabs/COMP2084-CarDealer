@@ -19,6 +19,9 @@ namespace Comp2084_CarDealer
             Database.SetInitializer(new CarDBInitializer());
             GlobalConfiguration.Configure(WebApiConfig.Register);
             AreaRegistration.RegisterAllAreas();
+
+            UnityConfig.RegisterComponents();
+
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

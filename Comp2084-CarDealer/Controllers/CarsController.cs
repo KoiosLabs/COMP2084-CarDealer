@@ -12,14 +12,18 @@ namespace Comp2084_CarDealer.Controllers
 {
     public class CarsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
 
+        ICarDAL DAL;
+        public CarsController(ICarDAL DAL)
+        {
+            this.DAL = DAL;
+        }
 
         [Route("cars/list")]
         // GET: Cars
         public ActionResult Index()
         {
-            var cars = db.Cars.Include(c => c.TypeOfCar);
+            var cars = DAL.GetAllCars();
             return View(cars.ToList());
         }
 
@@ -37,7 +41,7 @@ namespace Comp2084_CarDealer.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Car car = db.Cars.Find(id);
+            Car car = DAL.FindById(id);
             if (car == null)
             {
                 return HttpNotFound();
@@ -49,7 +53,7 @@ namespace Comp2084_CarDealer.Controllers
         // GET: Cars/Create
         public ActionResult Create()
         {
-            ViewBag.CarTypeId = new SelectList(db.CarTypes, "id", "Name");
+            ViewBag.CarTypeId = new SelectList(DAL.GetCarTypes(), "id", "Name");
             return View();
         }
 
@@ -64,12 +68,11 @@ namespace Comp2084_CarDealer.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Cars.Add(car);
-                db.SaveChanges();
+                DAL.SaveNewCar(car);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CarTypeId = new SelectList(db.CarTypes, "id", "Name", car.CarTypeId);
+            ViewBag.CarTypeId = new SelectList(DAL.GetCarTypes(), "id", "Name", car.CarTypeId);
             return View(car);
         }
 
@@ -80,12 +83,12 @@ namespace Comp2084_CarDealer.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Car car = db.Cars.Find(id);
+            Car car = DAL.FindById(id);
             if (car == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CarTypeId = new SelectList(db.CarTypes, "id", "Name", car.CarTypeId);
+            ViewBag.CarTypeId = new SelectList(DAL.GetCarTypes(), "id", "Name", car.CarTypeId);
             return View(car);
         }
 
@@ -98,11 +101,10 @@ namespace Comp2084_CarDealer.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(car).State = EntityState.Modified;
-                db.SaveChanges();
+                DAL.UpdateCar(car);
                 return RedirectToAction("Index");
             }
-            ViewBag.CarTypeId = new SelectList(db.CarTypes, "id", "Name", car.CarTypeId);
+            ViewBag.CarTypeId = new SelectList(DAL.GetCarTypes(), "id", "Name", car.CarTypeId);
             return View(car);
         }
 
@@ -113,7 +115,7 @@ namespace Comp2084_CarDealer.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Car car = db.Cars.Find(id);
+            Car car = DAL.FindById(id);
             if (car == null)
             {
                 return HttpNotFound();
@@ -126,9 +128,7 @@ namespace Comp2084_CarDealer.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Car car = db.Cars.Find(id);
-            db.Cars.Remove(car);
-            db.SaveChanges();
+            DAL.DeleteCar(id);
             return RedirectToAction("Index");
         }
 
@@ -136,7 +136,7 @@ namespace Comp2084_CarDealer.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                DAL.Dispose();
             }
             base.Dispose(disposing);
         }
